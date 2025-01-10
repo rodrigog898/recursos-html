@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Apiux-Halloween</title>
+    <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin="" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Creepster&display=swap" />
+    <style>
+        body {
+            background-color: #111418;
+            color: #fff;
+            font-family: 'Inter', 'Noto Sans', sans-serif;
+            display: flex;
+            background-image:
+                url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M30 0l15 30L30 60 15 30z' fill='%23452bc2' fill-opacity='0.1'/%3E%3C/svg%3E");
+            justify-content: center;
+            align-items: center;
+            margin: 0;
+            overflow: hidden;
+        }
+
+        h1 {
+            text-align: center;
+            font-size: 5.5em;
+            color: #f8c800;
+            text-shadow:
+                4px 4px 0 #452bc2,
+                -4px -4px 0 #452bc2,
+                4px -4px 0 #452bc2,
+                -4px 4px 0 #452bc2;
+            margin: 20px 0;
+            animation: flotar 3s ease-in-out infinite, espeluznante 1.5s infinite alternate;
+            letter-spacing: 3px;
+            font-family: 'Creepster', cursive;
+        }
+
+        @keyframes espeluznante {
+            0% {
+                color: #f8c800;
+                text-shadow:
+                    4px 4px 0 #452bc2,
+                    -4px -4px 0 #452bc2,
+                    4px -4px 0 #452bc2,
+                    -4px 4px 0 #452bc2;
+            }
+
+            50% {
+                color: #ff0000;
+                text-shadow:
+                    4px 4px 0 #000000,
+                    -4px -4px 0 #000000,
+                    4px -4px 0 #000000,
+                    -4px 4px 0 #000000;
+            }
+
+            100% {
+                color: #f8c800;
+                text-shadow:
+                    4px 4px 0 #452bc2,
+                    -4px -4px 0 #452bc2,
+                    4px -4px 0 #452bc2,
+                    -4px 4px 0 #452bc2;
+            }
+        }
+
+        .container {
+            position: relative;
+            width: 90vw;
+            /* Ancho adaptable al 90% del ancho de la pantalla */
+            max-width: 800px;
+            /* Limita el ancho máximo en pantallas más grandes */
+            height: auto;
+            /* Altura ajustable automáticamente */
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            /* Ajusta automáticamente las columnas */
+            grid-auto-rows: 200px;
+            /* Mantén la altura de las cartas */
+            gap: 20px;
+            padding: 20px;
+            /* Agrega algo de espacio alrededor del contenedor */
+        }
+
+
+        .card {
+            width: 150px;
+            height: 200px;
+            perspective: 1000px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+            border-radius: 10px;
+            cursor: pointer;
+            transition: transform 0.6s, opacity 0.6s;
+            position: relative;
+            /* Asegura que los elementos hijos se posicionen correctamente */
+        }
+
+        .card-inner {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            transform-style: preserve-3d;
+            transition: transform 0.6s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .card.flipped .card-inner {
+            transform: rotateY(180deg);
+        }
+
+        .card-front,
+        .card-back {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            backface-visibility: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 10px;
+            font-size: 24px;
+            font-weight: bold;
+            font-family: 'Creepster', cursive;
+            text-align: center;
+            /* Asegura el texto centrado */
+        }
+
+
+        .card-back {
+            background: #f8c800;
+            border: 3px solid #fcec9e;
+            color: #6248e4;
+            font-size: 2.5em;
+            background-image:
+                url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M20 0l10 20-10 20L10 20z' fill='%23fcec9e' fill-opacity='0.3'/%3E%3C/svg%3E");
+        }
+
+        .card-front {
+            border-color: #ffffff;
+            transform: rotateY(180deg);
+
+            background: #f8c800;
+            color: #c51414;
+        }
+
+        .card-back {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 24px;
+            /* Adjust size as needed */
+        }
+
+        .wave {
+            display: inline-block;
+            animation: wave 1s ease-in-out infinite;
+        }
+
+        .wave:nth-child(1) {
+            animation-delay: 0.2s;
+        }
+
+        .wave:nth-child(2) {
+            animation-delay: 0.4s;
+        }
+
+        .wave:nth-child(3) {
+            animation-delay: 0.6s;
+        }
+
+        .wave:nth-child(4) {
+            animation-delay: 0.8s;
+        }
+
+        .wave:nth-child(5) {
+            animation-delay: 1s;
+        }
+
+        @keyframes wave {
+
+            0%,
+            60%,
+            100% {
+                transform: translateY(0);
+            }
+
+            30% {
+                transform: translateY(-10px);
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div>
+        <h1>Apiux Halloween</h1>
+        <div class="container" id="cardContainer">
+            <!-- Se generan 12 cartas -->
+        </div>
+    </div>
+    <script>
+        const cardMessages = [
+            "Este partido permite remolino", "Este partido permite remolino", "Este partido permite remolino",
+            "Durante 1 minuto, los goles descuentan puntos del rival además de sumar", "Durante 1 minuto, los goles descuentan puntos del rival además de sumar",
+            "Cambiar a un jugador por otro por 1 minuto",
+            "Elegir dos jugadores que deben usar manilla por 1 minuto",
+            "Pierdes un jugador por 1 minuto",
+            "Durante 1 minuto, tus goles valen doble",
+            "Todos juegan con los ojos vendados por 1 minuto",
+            "Todos juegan con una mano hasta que se haga un gol",
+            "El partido comienza con cinco pelotas en la cancha",
+            "Empiezas con 2 puntos",
+            "Empiezas con un gol de ventaja",
+            "Tu equipo juega sentado durante 1 minuto",
+            "El equipo rival juega sentado durante 1 minuto",
+            "Todos juegan sentados durante 1 minuto"
+        ];
+        const container = document.getElementById("cardContainer");
+
+        function createCard(index) {
+            const card = document.createElement("div");
+            card.classList.add("card");
+            card.innerHTML = `
+        <div class="card-inner">
+            <div class="card-back">
+                <span class="wave">A</span><span class="wave">p</span><span class="wave">i</span><span class="wave">u</span><span class="wave">x</span>
+            </div>
+            <div class="card-front" style= justify-content: right;>${cardMessages[index]}</div>
+        </div>`;
+            card.addEventListener("click", () => flipCard(card));
+            return card;
+        }
+
+        function generateDerangement(n) {
+            let derangement = [];
+            let used = new Array(n).fill(false);
+
+            function helper(i) {
+                if (i === n) return true;
+
+                let choices = [];
+                for (let j = 0; j < n; j++) {
+                    if (!used[j] && j !== i) {
+                        choices.push(j);
+                    }
+                }
+
+                while (choices.length) {
+                    let randomIndex = Math.floor(Math.random() * choices.length);
+                    let j = choices.splice(randomIndex, 1)[0];
+                    derangement[i] = j;
+                    used[j] = true;
+                    if (helper(i + 1)) {
+                        return true;
+                    }
+                    used[j] = false;
+                }
+                return false;
+            }
+
+            helper(0);
+            return derangement;
+        }
+
+        function shuffleCards() {
+            const cards = document.querySelectorAll(".card");
+            const centerX = container.offsetWidth / 2 - 75; // Center X position
+            const centerY = container.offsetHeight / 2 - 100; // Center Y position
+
+            // Store initial positions
+            const positions = [];
+            cards.forEach(card => {
+                positions.push({ left: card.offsetLeft, top: card.offsetTop });
+            });
+
+            // Move cards to center
+            cards.forEach(card => {
+                card.style.transition = 'transform 4s';
+                card.style.transform = `translate(${centerX - card.offsetLeft}px, ${centerY - card.offsetTop}px)`;
+            });
+
+            setTimeout(() => {
+                // Generate derangement
+                let derangement = generateDerangement(cards.length);
+
+                // Rearrange cards
+                cards.forEach((card, index) => {
+                    const newIndex = derangement[index];
+                    const row = Math.floor(newIndex / 4);
+                    const col = newIndex % 4;
+                    const newX = col * 170; // 150px width + 20px gap
+                    const newY = row * 220; // 200px height + 20px gap
+                    card.style.transform = `translate(${newX - positions[index].left}px, ${newY - positions[index].top}px)`;
+                });
+            }, 1000);
+        }
+        function flipCard(card) {
+            card.classList.add("flipped");
+            setTimeout(() => {
+                card.classList.remove("flipped");
+                shuffleCards();
+            }, 3500);
+        }
+
+        function shuffleCards() {
+            const cards = document.querySelectorAll(".card");
+            const centerX = container.offsetWidth / 2 - 75; // Center X position
+            const centerY = container.offsetHeight / 2 - 100; // Center Y position
+
+            cards.forEach(card => {
+                card.style.transition = 'transform 1s';
+                card.style.transform = `translate(${centerX - card.offsetLeft}px, ${centerY - card.offsetTop}px)`;
+            });
+
+            setTimeout(() => {
+                cards.forEach((card, index) => {
+                    const row = Math.floor(index / 4);
+                    const col = index % 4;
+                    const newX = col * 170; // 150px width + 20px gap
+                    const newY = row * 220; // 200px height + 20px gap
+                    card.style.transform = `translate(${newX - card.offsetLeft}px, ${newY - card.offsetTop}px)`;
+                });
+            }, 1000);
+        }
+
+        function initializeGame() {
+            cardMessages.sort(() => Math.random() - 0.5);  // Mezclar mensajes
+            for (let i = 0; i < 12; i++) {
+                const card = createCard(i);
+                container.appendChild(card);
+            }
+        }
+
+
+        function generateDerangement(n) {
+            let derangement = [];
+            let used = new Array(n).fill(false);
+
+            function helper(i) {
+                if (i === n) return true;
+
+                let choices = [];
+                for (let j = 0; j < n; j++) {
+                    if (!used[j] && j !== i) {
+                        choices.push(j);
+                    }
+                }
+
+                while (choices.length) {
+                    let randomIndex = Math.floor(Math.random() * choices.length);
+                    let j = choices.splice(randomIndex, 1)[0];
+                    derangement[i] = j;
+                    used[j] = true;
+                    if (helper(i + 1)) {
+                        return true;
+                    }
+                    used[j] = false;
+                }
+                return false;
+            }
+
+            helper(0);
+            return derangement;
+        }
+
+        function shuffleCards() {
+            const cards = document.querySelectorAll(".card");
+            const centerX = container.offsetWidth / 2 - 75; // Center X position
+            const centerY = container.offsetHeight / 2 - 100; // Center Y position
+
+            // Store initial positions
+            const positions = [];
+            cards.forEach(card => {
+                positions.push({ left: card.offsetLeft, top: card.offsetTop });
+            });
+
+            // Move cards to center
+            cards.forEach(card => {
+                card.style.transition = 'transform 1s';
+                card.style.transform = `translate(${centerX - card.offsetLeft}px, ${centerY - card.offsetTop}px)`;
+            });
+
+            setTimeout(() => {
+                // Generate derangement
+                let derangement = generateDerangement(cards.length);
+
+                // Rearrange cards
+                cards.forEach((card, index) => {
+                    const newIndex = derangement[index];
+                    const row = Math.floor(newIndex / 4);
+                    const col = newIndex % 4;
+                    const newX = col * 170; // 150px width + 20px gap
+                    const newY = row * 220; // 200px height + 20px gap
+                    card.style.transform = `translate(${newX - positions[index].left}px, ${newY - positions[index].top}px)`;
+                });
+            }, 1000);
+        }
+
+        initializeGame();
+    </script>
+</body>
+
+</html>
