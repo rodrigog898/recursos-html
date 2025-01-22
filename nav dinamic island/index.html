@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Navegación con Íconos y Tooltips Personalizados</title>
+  <!-- Inclusión de Tailwind CSS desde su CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Inclusión de Ionicons -->
+  <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+  <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+  <style>
+    /* Estilos para los tooltips personalizados */
+    .tooltip {
+      position: absolute;
+      top: 100%; /* Justo debajo del contenedor */
+      left: 50%;
+      transform: translateX(-50%);
+      margin-top: 0.25rem; /* Espacio entre el ícono y el tooltip */
+      padding: 0.25rem 0.5rem;
+      background-color: white;
+      color: black;
+      font-size: 0.875rem;
+      border-radius: 0.25rem;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.2s ease;
+      white-space: nowrap;
+      z-index: 10;
+    }
+    .group:hover .tooltip {
+      opacity: 1;
+    }
+  </style>
+</head>
+<body class="bg-gray-100">
+  <nav class="fixed top-4 left-1/2 transform -translate-x-1/2 bg-black text-white rounded-full p-2 w-11/12 max-w-3xl shadow-lg">
+    <div class="flex items-center justify-between px-4">
+      <!-- Logo como imagen -->
+      <a href="/">
+        <img src="ico_blanco.png" alt="Logo" class="h-12 w-auto" />
+      </a>
+
+      <div class="hidden md:flex space-x-4 items-center">
+        <!-- Cada enlace actúa como un grupo para el tooltip -->
+        <a href="/rear-usuarios" class="relative group flex items-center justify-center px-3 py-2 rounded-full hover:bg-white hover:text-black transition-colors">
+          <ion-icon name="person-add-outline" class="w-5 h-5 pointer-events-auto"></ion-icon>
+          <span class="tooltip">Crear Usuarios</span>
+        </a>
+        <a href="/eliminar" class="relative group flex items-center justify-center px-3 py-2 rounded-full hover:bg-white hover:text-black transition-colors">
+          <ion-icon name="trash-outline" class="w-5 h-5 pointer-events-auto"></ion-icon>
+          <span class="tooltip">Eliminar</span>
+        </a>
+        <a href="/buscar-grupo" class="relative group flex items-center justify-center px-3 py-2 rounded-full hover:bg-white hover:text-black transition-colors">
+          <ion-icon name="people-outline" class="w-5 h-5 pointer-events-auto"></ion-icon>
+          <span class="tooltip">Buscar Grupo</span>
+        </a>
+        <a href="/actividad" class="relative group flex items-center justify-center px-3 py-2 rounded-full hover:bg-white hover:text-black transition-colors">
+          <ion-icon name="stats-chart-outline" class="w-5 h-5 pointer-events-auto"></ion-icon>
+          <span class="tooltip">Actividad</span>
+        </a>
+        <a href="/asignar-grupo" class="relative group flex items-center justify-center px-3 py-2 rounded-full hover:bg-white hover:text-black transition-colors">
+          <ion-icon name="people-outline" class="w-5 h-5 pointer-events-auto"></ion-icon>
+          <span class="tooltip">Asignar Grupo</span>
+        </a>
+        <a href="/correo-bienvenida" class="relative group flex items-center justify-center px-3 py-2 rounded-full hover:bg-white hover:text-black transition-colors">
+          <ion-icon name="mail-outline" class="w-5 h-5 pointer-events-auto"></ion-icon>
+          <span class="tooltip">Correo Bienvenida</span>
+        </a>
+      </div>
+
+      <!-- Menú para dispositivos móviles (estructura similar con tooltips) -->
+      <div class="md:hidden">
+        <button class="relative group p-0" title="Abrir menú">
+          <ion-icon name="menu-outline" class="h-6 w-6 pointer-events-auto"></ion-icon>
+          <span class="sr-only">Abrir menú</span>
+        </button>
+        <div class="mt-2">
+          <div class="flex flex-col space-y-4">
+            <a href="/rear-usuarios" class="relative group flex items-center justify-center px-3 py-2 rounded-full hover:bg-white hover:text-black transition-colors">
+              <ion-icon name="person-add-outline" class="w-5 h-5 pointer-events-auto"></ion-icon>
+              <span class="tooltip">rear usuarios</span>
+            </a>
+            <a href="/eliminar" class="relative group flex items-center justify-center px-3 py-2 rounded-full hover:bg-white hover:text-black transition-colors">
+              <ion-icon name="trash-outline" class="w-5 h-5 pointer-events-auto"></ion-icon>
+              <span class="tooltip">eliminar</span>
+            </a>
+            <a href="/buscar-grupo" class="relative group flex items-center justify-center px-3 py-2 rounded-full hover:bg-white hover:text-black transition-colors">
+              <ion-icon name="people-outline" class="w-5 h-5 pointer-events-auto"></ion-icon>
+              <span class="tooltip">buscar grupo</span>
+            </a>
+            <a href="/actividad" class="relative group flex items-center justify-center px-3 py-2 rounded-full hover:bg-white hover:text-black transition-colors">
+              <ion-icon name="stats-chart-outline" class="w-5 h-5 pointer-events-auto"></ion-icon>
+              <span class="tooltip">actividad</span>
+            </a>
+            <a href="/asignar-grupo" class="relative group flex items-center justify-center px-3 py-2 rounded-full hover:bg-white hover:text-black transition-colors">
+              <ion-icon name="people-outline" class="w-5 h-5 pointer-events-auto"></ion-icon>
+              <span class="tooltip">asignar grupo</span>
+            </a>
+            <a href="/correo-bienvenida" class="relative group flex items-center justify-center px-3 py-2 rounded-full hover:bg-white hover:text-black transition-colors">
+              <ion-icon name="mail-outline" class="w-5 h-5 pointer-events-auto"></ion-icon>
+              <span class="tooltip">correo bienvenida</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </nav>
+</body>
+</html>
