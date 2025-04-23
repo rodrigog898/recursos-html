@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Consola Mac Fake - Comandos Linux Random</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      background: #2b2b2b;
+      font-family: Menlo, Monaco, "Courier New", monospace;
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .terminal {
+      width: 700px;
+      max-width: 95%;
+      height: 500px;
+      background: #1e1e1e;
+      border-radius: 8px;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.5);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+    .terminal-header {
+      background: #2d2d2d;
+      padding: 8px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .terminal-header .circle {
+      width: 12px; height: 12px; border-radius: 50%; display: inline-block;
+    }
+    .close { background: #ff5f56; }
+    .minimize { background: #ffbd2e; }
+    .maximize { background: #27c93f; }
+    .terminal-body {
+      flex: 1;
+      padding: 12px;
+      color: #dcdcdc;
+      font-size: 14px;
+      line-height: 1.4;
+      overflow-y: auto;
+    }
+    .input-line { display: flex; }
+    .prompt { display: inline-block; }
+    .input-caret {
+      width: 8px;
+      background: #dcdcdc;
+      margin-left: 2px;
+      animation: blink 1s step-end infinite;
+    }
+    @keyframes blink {
+      from, to { background: transparent; }
+      50% { background: #dcdcdc; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="terminal">
+  <div class="terminal-header">
+    <span class="circle close"></span>
+    <span class="circle minimize"></span>
+    <span class="circle maximize"></span>
+  </div>
+  <div class="terminal-body" id="terminalBody">
+    <div class="input-line">
+      <span class="prompt">Rodrigog@macos:~$&nbsp;</span>
+      <span id="cmd"></span><span class="input-caret"></span>
+    </div>
+  </div>
+</div>
+
+<script>
+(function(){
+  const term = document.getElementById('terminalBody');
+  const cmdSpan = document.getElementById('cmd');
+  const promptText = 'usuario@macos:~$ ';
+  let input = '';
+
+  // Datos aleatorios
+  const users = ['rodrigo','ana','server01','root','guest'];
+  const files = ['documento.txt','imágenes','proyecto','video.mp4','musica.mp3','backup.tar.gz'];
+  const paths = ['/home/usuario','/var/www','/etc','/usr/local/bin','/tmp'];
+  const quotes = [
+    "La vida es aquello que te sucede mientras estás ocupado haciendo otros planes.",
+    "Sé el cambio que quieres ver en el mundo.",
+    "No cuentes los días, haz que los días cuenten.",
+    "El éxito es la suma de pequeños esfuerzos repetidos día tras día."
+  ];
+  const processes = [
+    'root       1  0.0  0.1 22584  3368 ?        Ss   05:00   0:00 /sbin/init',
+    'usuario  1024  0.3  1.2 452380 24568 pts/0   Sl+  05:12   0:02 /usr/bin/node app.js',
+    'mysql    1100  1.5  2.4 712344 48320 ?        Ssl  05:05   0.10 /usr/sbin/mysqld',
+    'usuario  2048  0.0  0.3  12345  6780 pts/1    R+   05:20   0.00 top'
+  ];
+
+  document.body.tabIndex = 0;
+  document.body.addEventListener('click', () => {
+    window.getSelection().removeAllRanges();
+    document.body.focus();
+  });
+  document.body.addEventListener('keydown', e => {
+    if (e.key === 'Backspace') {
+      input = input.slice(0, -1);
+    } else if (e.key === 'Enter') {
+      runCommand(input.trim());
+      input = '';
+    } else if (e.key.length === 1) {
+      input += e.key;
+    }
+    cmdSpan.textContent = input;
+    term.scrollTop = term.scrollHeight;
+    e.preventDefault();
+  });
+
+  function getRandom(arr) {
+    return arr[Math.floor(Math.random() * arr.length)];
+  }
+
+  function runCommand(cmd) {
+    // Línea escrita
+    const line = document.createElement('div');
+    line.textContent = promptText + cmd;
+    term.insertBefore(line, term.querySelector('.input-line'));
+
+    let output = '';
+    if (!cmd) {
+      output = '';
+    }
+    else if (cmd === 'help') {
+      output = [
+        'Comandos disponibles:',
+        ' help, date, echo, clear',
+        ' uname, uname -a, ls, pwd, whoami',
+        ' uptime, df -h, free -m, ps aux, fortune'
+      ].join('\n');
+    }
+    else if (cmd === 'date') {
+      output = new Date().toString();
+    }
+    else if (cmd.startsWith('echo ')) {
+      output = cmd.slice(5);
+    }
+    else if (cmd === 'clear') {
+      term.innerHTML = 'Rodrigog';
+    }
+    else if (cmd === 'uname' || cmd === 'uname -a') {
+      const kernels = ['Darwin','Linux','macOS'];
+      const releases = ['19.6.0','5.15.32','21.4.0'];
+      if (cmd === 'uname') {
+        output = getRandom(kernels);
+      } else {
+        output = `${getRandom(kernels)} ${getRandom(releases)} ${getRandom(users)}-MacBook-Pro`;
+      }
+    }
+    else if (cmd === 'ls') {
+      output = files.map(f => getRandom([f, f.toUpperCase(), '.'+f])).join('  ');
+    }
+    else if (cmd === 'pwd') {
+      output = getRandom(paths);
+    }
+    else if (cmd === 'whoami') {
+      output = getRandom(users);
+    }
+    else if (cmd === 'uptime') {
+      const mins = Math.floor(Math.random()*5000);
+      output = ` ${new Date().toTimeString().split(' ')[0]} up ${mins} min,  1 user,  load average: ${Math.random().toFixed(2)}, ${Math.random().toFixed(2)}, ${Math.random().toFixed(2)}`;
+    }
+    else if (cmd === 'df -h') {
+      output = [
+        'Filesystem      Size  Used Avail Use% Mounted on',
+        `/dev/sda1       ${Math.floor(Math.random()*500)}G  ${Math.floor(Math.random()*400)}G  ${Math.floor(Math.random()*100)}G  ${Math.floor(Math.random()*100)}% /`,
+        'tmpfs           2.0G     0  2.0G   0% /dev/shm'
+      ].join('\n');
+    }
+    else if (cmd === 'free -m') {
+      output = [
+        '              total        used        free      shared  buff/cache   available',
+        `Mem:           7979        ${Math.floor(Math.random()*7000)}        ${Math.floor(Math.random()*2000)}         123        4567        ${Math.floor(Math.random()*6000)}`,
+        `Swap:          2048           0        2048`
+      ].join('\n');
+    }
+    else if (cmd.startsWith('ps')) {
+      output = ['USER       PID %CPU %MEM    VSZ   RSS TTY      STAT START   TIME COMMAND']
+        .concat(processes.map(p => getRandom(processes)))
+        .join('\n');
+    }
+    else if (cmd === 'fortune') {
+      output = getRandom(quotes);
+    }
+    else {
+      output = `bash: ${cmd}: comando no encontrado`;
+    }
+
+    if (output) {
+      const outLines = output.split('\n');
+      outLines.forEach(txt => {
+        const o = document.createElement('div');
+        o.textContent = txt;
+        term.insertBefore(o, term.querySelector('.input-line'));
+      });
+    }
+
+    cmdSpan.textContent = '';
+    term.scrollTop = term.scrollHeight;
+  }
+})();
+</script>
+
+</body>
+</html>
